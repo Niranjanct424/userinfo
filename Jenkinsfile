@@ -27,7 +27,7 @@ pipeline{
                 body: """<p>Build ${currentBuild.result}: ${env.JOB_NAME} - ${env.BUILD_NUMBER}</p>
                          <p>Commit: ${env.GIT_COMMIT}</p>
                          <p>Duration: ${currentBuild.duration} ms</p>""",
-                to: 'recipient@example.com',
+                to: 'niranjangyadav124@gmail.com',
                 mimeType: 'text/html'
             )
         }
