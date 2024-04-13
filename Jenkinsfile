@@ -17,22 +17,19 @@ pipeline{
                     sh 'mvn clean install'
                 }
             }
-        }
+        }  
     }
     
     post{
         always{
-            emailext body: '''<html>
-<body>
-<div>
-<h1> New Build Trigger Status </h1>
-</div>
-<p>Build Number : ${BUILD_NUMBER}</p>
-<p>Build Status : ${BUILD_STATUS}</p>
-<p>Build URL :  ${BUILD_URL}</p>
-</body>
-</html>
-''', subject: 'Pipeline status : ${BUILD_NUMBER}', to: 'niranjangyadav124@gmail.com'
+			emailext (
+                subject: "Build ${currentBuild.result}: ${env.JOB_NAME} - ${env.BUILD_NUMBER}",
+                body: """<p>Build ${currentBuild.result}: ${env.JOB_NAME} - ${env.BUILD_NUMBER}</p>
+                         <p>Commit: ${env.GIT_COMMIT}</p>
+                         <p>Duration: ${currentBuild.duration} ms</p>""",
+                to: 'recipient@example.com',
+                mimeType: 'text/html'
+            )
         }
     }
 }
